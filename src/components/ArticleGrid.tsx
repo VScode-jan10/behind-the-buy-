@@ -13,6 +13,7 @@ interface ArticleGridProps {
   onSelectCategory?: (category: CategoryId | 'all') => void;
   title?: string;
   showCategoryTabs?: boolean;
+  titleTag?: 'h1' | 'h2';
 }
 
 export const ArticleGrid: React.FC<ArticleGridProps> = ({
@@ -24,7 +25,9 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
   onSelectCategory,
   title = 'All Articles',
   showCategoryTabs = true,
+  titleTag = 'h2',
 }) => {
+  const HeadingTag = titleTag;
   const [activeCategory, setActiveCategory] = useState<CategoryId | 'all'>(selectedCategory);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'latest' | 'read-time'>('latest');
@@ -62,9 +65,9 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-300/80 mb-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1A1918]">
+          <HeadingTag className="text-2xl sm:text-3xl font-serif font-bold text-[#1A1918]">
             {title}
-          </h2>
+          </HeadingTag>
           <p className="text-xs font-sans text-stone-500 uppercase tracking-widest mt-1">
             Showing {sortedArticles.length} of {articles.length} published essays
           </p>

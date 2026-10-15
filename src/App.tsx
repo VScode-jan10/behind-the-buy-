@@ -63,10 +63,48 @@ export default function App() {
       title = 'All Essays | Consumer Psychology & Brand Strategy';
       description =
         'Explore 10 comprehensive essays on pricing tactics, brand identity, advertising psychology, and consumer purchasing behavior.';
-    } else if (currentPath === '/categories' || currentPath.startsWith('/category/')) {
+    } else if (currentPath === '/categories') {
       title = 'Topic Categories | Behind the Buy Publication';
       description =
         'Browse Behind the Buy topic verticals: Pricing Tactics, Brand Strategy, Advertising & Media, Consumer Psychology, and Luxury Prestige.';
+    } else if (currentPath.startsWith('/category/')) {
+      const categoryId = currentPath.replace('/category/', '');
+      const categoryMeta: Record<string, { title: string; description: string }> = {
+        'pricing-tactics': {
+          title: 'Pricing Tactics & Behavioral Economics | Behind the Buy',
+          description:
+            'Explore pricing tactics essays analyzing price anchoring, charm pricing, decoy effects, and volume packaging strategies in retail commerce.'
+        },
+        'brand-strategy': {
+          title: 'Brand Strategy & Consumer Loyalty | Behind the Buy',
+          description:
+            'Discover brand strategy essays on building emotional moats, distinct identity architectures, storytelling, and scarcity-driven drop mechanics.'
+        },
+        'advertising-media': {
+          title: 'Advertising Psychology & Media | Behind the Buy',
+          description:
+            'Examine advertising psychology essays on persuasion mechanics, sensory priming, mere exposure, and storytelling in modern media campaigns.'
+        },
+        'consumer-psychology': {
+          title: 'Consumer Psychology & Heuristics | Behind the Buy',
+          description:
+            'Analyze consumer psychology essays on mental shortcuts, herding instincts, review validation, and social proof in purchasing decisions.'
+        },
+        'luxury-prestige': {
+          title: 'Luxury Goods & Prestige Pricing | Behind the Buy',
+          description:
+            'Investigate luxury pricing essays covering Veblen goods, status signaling, exquisite friction, and the economics of unattainable exclusivity.'
+        }
+      };
+
+      if (categoryMeta[categoryId]) {
+        title = categoryMeta[categoryId].title;
+        description = categoryMeta[categoryId].description;
+      } else {
+        title = 'Topic Categories | Behind the Buy Publication';
+        description =
+          'Browse Behind the Buy topic verticals: Pricing Tactics, Brand Strategy, Advertising & Media, Consumer Psychology, and Luxury Prestige.';
+      }
     } else if (currentPath === '/about') {
       title = 'About Us | Behind the Buy Editorial Publication';
       description =
@@ -112,6 +150,244 @@ export default function App() {
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', canonicalUrl);
+
+    // -------------------------------------------------------------
+    // Dynamic Schema.org JSON-LD Structured Data Management (@graph)
+    // -------------------------------------------------------------
+    const formatIsoDate = (dateStr: string): string => {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return '2026-10-15';
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    const organizationSchema = {
+      '@type': 'Organization',
+      '@id': `${DOMAIN}/#organization`,
+      'name': 'Behind the Buy',
+      'url': `${DOMAIN}/`,
+      'description': 'An independent digital publication dedicated to analyzing consumer psychology, pricing tactics, and brand strategy.'
+    };
+
+    const websiteSchema = {
+      '@type': 'WebSite',
+      '@id': `${DOMAIN}/#website`,
+      'url': `${DOMAIN}/`,
+      'name': 'Behind the Buy',
+      'description': 'Consumer psychology, pricing tactics, and brand strategy analysis publication.',
+      'publisher': { '@id': `${DOMAIN}/#organization` }
+    };
+
+    const graphItems: any[] = [organizationSchema, websiteSchema];
+
+    if (cleanPath.startsWith('/article/')) {
+      const slug = cleanPath.replace('/article/', '');
+      const article = ARTICLES.find((a) => a.slug === slug);
+      if (article) {
+        const articleIsoDate = formatIsoDate(article.publishedAt);
+        const articleUrl = `${DOMAIN}/article/${article.slug}`;
+
+        graphItems.push({
+          '@type': 'BlogPosting',
+          '@id': `${articleUrl}#article`,
+          'mainEntityOfPage': articleUrl,
+          'headline': article.title,
+          'description': article.seoDescription || article.excerpt,
+          'datePublished': articleIsoDate,
+          'dateModified': articleIsoDate,
+          'author': {
+            '@type': 'Person',
+            'name': article.author.name,
+            'jobTitle': article.author.title
+          },
+          'publisher': { '@id': `${DOMAIN}/#organization` },
+          'isPartOf': { '@id': `${DOMAIN}/#website` },
+          'articleSection': article.categoryName,
+          'keywords': article.tags ? article.tags.join(', ') : undefined
+        });
+
+        graphItems.push({
+          '@type': 'BreadcrumbList',
+          '@id': `${articleUrl}#breadcrumb`,
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': `${DOMAIN}/`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': article.categoryName,
+              'item': `${DOMAIN}/category/${article.category}`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': article.title,
+              'item': articleUrl
+            }
+          ]
+        });
+      }
+    } else if (cleanPath.startsWith('/category/')) {
+      const categoryId = cleanPath.replace('/category/', '') as CategoryId;
+      const categoryObj = CATEGORIES.find((c) => c.id === categoryId);
+      const categoryUrl = `${DOMAIN}/category/${categoryId}`;
+
+      graphItems.push({
+        '@type': 'CollectionPage',
+        '@id': `${categoryUrl}#webpage`,
+        'url': categoryUrl,
+        'name': categoryObj ? categoryObj.name : 'Topic Category',
+        'description': categoryObj ? categoryObj.description : description,
+        'isPartOf': { '@id': `${DOMAIN}/#website` }
+      });
+
+      graphItems.push({
+        '@type': 'BreadcrumbList',
+        '@id': `${categoryUrl}#breadcrumb`,
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': `${DOMAIN}/`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Categories',
+            'item': `${DOMAIN}/categories`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 3,
+            'name': categoryObj ? categoryObj.name : 'Category',
+            'item': categoryUrl
+          }
+        ]
+      });
+    } else if (cleanPath === '/categories') {
+      const categoriesUrl = `${DOMAIN}/categories`;
+      graphItems.push({
+        '@type': 'CollectionPage',
+        '@id': `${categoriesUrl}#webpage`,
+        'url': categoriesUrl,
+        'name': title,
+        'description': description,
+        'isPartOf': { '@id': `${DOMAIN}/#website` }
+      });
+
+      graphItems.push({
+        '@type': 'BreadcrumbList',
+        '@id': `${categoriesUrl}#breadcrumb`,
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': `${DOMAIN}/`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Categories',
+            'item': categoriesUrl
+          }
+        ]
+      });
+    } else if (cleanPath === '/articles') {
+      const articlesUrl = `${DOMAIN}/articles`;
+      graphItems.push({
+        '@type': 'CollectionPage',
+        '@id': `${articlesUrl}#webpage`,
+        'url': articlesUrl,
+        'name': title,
+        'description': description,
+        'isPartOf': { '@id': `${DOMAIN}/#website` }
+      });
+
+      graphItems.push({
+        '@type': 'BreadcrumbList',
+        '@id': `${articlesUrl}#breadcrumb`,
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': `${DOMAIN}/`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'All Essays',
+            'item': articlesUrl
+          }
+        ]
+      });
+    } else if (cleanPath === '/about') {
+      const aboutUrl = `${DOMAIN}/about`;
+      graphItems.push({
+        '@type': 'AboutPage',
+        '@id': `${aboutUrl}#webpage`,
+        'url': aboutUrl,
+        'name': title,
+        'description': description,
+        'isPartOf': { '@id': `${DOMAIN}/#website` },
+        'about': { '@id': `${DOMAIN}/#organization` }
+      });
+
+      graphItems.push({
+        '@type': 'BreadcrumbList',
+        '@id': `${aboutUrl}#breadcrumb`,
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': `${DOMAIN}/`
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'About Us',
+            'item': aboutUrl
+          }
+        ]
+      });
+    } else {
+      graphItems.push({
+        '@type': 'WebPage',
+        '@id': `${DOMAIN}/#webpage`,
+        'url': `${DOMAIN}/`,
+        'name': title,
+        'description': description,
+        'isPartOf': { '@id': `${DOMAIN}/#website` },
+        'about': { '@id': `${DOMAIN}/#organization` }
+      });
+    }
+
+    // Single script tag injection / update using fixed id to prevent duplication
+    let jsonLdScript = document.querySelector('script[id="schema-jsonld"]') as HTMLScriptElement | null;
+    if (!jsonLdScript) {
+      jsonLdScript = document.createElement('script');
+      jsonLdScript.id = 'schema-jsonld';
+      jsonLdScript.type = 'application/ld+json';
+      document.head.appendChild(jsonLdScript);
+    }
+
+    jsonLdScript.textContent = JSON.stringify(
+      {
+        '@context': 'https://schema.org',
+        '@graph': graphItems
+      },
+      null,
+      2
+    );
   }, [currentPath]);
 
   // Router helper
@@ -163,16 +439,17 @@ export default function App() {
     // 2. All Articles View: /articles
     if (currentPath === '/articles') {
       return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <ArticleGrid
             articles={ARTICLES}
             onSelectArticle={(slug) => navigateTo(`/article/${slug}`)}
             onToggleSaveArticle={handleToggleSaveArticle}
             savedArticleIds={savedArticleIds}
             title="All 10 Editorial Essays"
+            titleTag="h1"
             showCategoryTabs={true}
           />
-        </div>
+        </main>
       );
     }
 

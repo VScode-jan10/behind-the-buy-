@@ -215,6 +215,7 @@ export const ARTICLES: Article[] = [
     author: AUTHORS.sophia,
     publishedAt: 'October 08, 2026',
     readTimeMinutes: 8,
+    seoTitle: 'How Advertising Shapes Buying Decisions | Behind the Buy',
     tags: ['Advertising', 'Priming', 'Mere Exposure', 'Consumer Psychology'],
     heroTheme: {
       accentColor: '#9A3412',
@@ -284,6 +285,8 @@ export const ARTICLES: Article[] = [
     author: AUTHORS.julian,
     publishedAt: 'October 05, 2026',
     readTimeMinutes: 7,
+    seoTitle: 'Why Brands Use Different Packaging Sizes | Behind the Buy',
+    seoDescription: 'Learn why retail brands offer varied packaging sizes, from travel minis to bulk packs, leveraging shrinkflation and price discrimination.',
     tags: ['Packaging', 'Shrinkflation', 'Price Discrimination', 'Retail Architecture'],
     heroTheme: {
       accentColor: '#14532D',
@@ -352,6 +355,7 @@ export const ARTICLES: Article[] = [
     author: AUTHORS.sophia,
     publishedAt: 'October 03, 2026',
     readTimeMinutes: 7,
+    seoTitle: 'How Social Proof Influences Buyer Choices | Behind the Buy',
     tags: ['Social Proof', 'Herding Instinct', 'Validation', 'Reviews'],
     heroTheme: {
       accentColor: '#78350F',
@@ -493,6 +497,7 @@ export const ARTICLES: Article[] = [
     author: AUTHORS.elena,
     publishedAt: 'September 28, 2026',
     readTimeMinutes: 7,
+    seoTitle: 'How Limited-Edition Drops Create Demand | Behind the Buy',
     tags: ['Scarcity', 'Drop Culture', 'Urgency', 'FOMO'],
     heroTheme: {
       accentColor: '#991B1B',
@@ -648,6 +653,7 @@ export const ARTICLES: Article[] = [
     author: AUTHORS.sophia,
     publishedAt: 'September 22, 2026',
     readTimeMinutes: 8,
+    seoDescription: 'Discover how color psychology shapes branding, evokes emotional responses, builds trust, and drives immediate visual recognition in modern markets.',
     tags: ['Color Psychology', 'Design', 'Visual Identity', 'Branding'],
     heroTheme: {
       accentColor: '#D97706',
@@ -719,6 +725,7 @@ export const ARTICLES: Article[] = [
     author: AUTHORS.elena,
     publishedAt: 'September 18, 2026',
     readTimeMinutes: 9,
+    seoDescription: 'Discover how world-class companies use narrative structure and storytelling to connect deeply with consumers and turn customers into brand advocates.',
     tags: ['Storytelling', 'Narrative', 'Brand Loyalty', 'Content Strategy'],
     heroTheme: {
       accentColor: '#4C1D95',
