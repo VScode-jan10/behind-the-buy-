@@ -40,9 +40,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                 ? 'bg-stone-900 text-stone-100'
                 : 'bg-stone-100/80 text-stone-600 hover:bg-white hover:text-stone-900'
             }`}
-            aria-label={isSaved ? 'Remove from saved' : 'Save article'}
+            aria-label={isSaved ? `Remove ${article.title} from saved` : `Save ${article.title}`}
           >
-            <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-stone-100' : ''}`} />
+            <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-stone-100' : ''}`} aria-hidden="true" />
           </button>
         )}
       </div>
@@ -54,7 +54,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         </span>
         <span aria-hidden="true" className="text-stone-400">·</span>
         <span className="flex items-center gap-1">
-          <Clock className="w-3 h-3 text-stone-400" />
+          <Clock className="w-3 h-3 text-stone-400" aria-hidden="true" />
           {article.readTimeMinutes} min read
         </span>
         <span aria-hidden="true" className="text-stone-400">·</span>
@@ -74,7 +74,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       {/* Footer Author & Link */}
       <div className="pt-3 border-t border-stone-200/60 flex items-center justify-between text-xs font-sans mt-auto">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-stone-300 flex items-center justify-center font-bold text-[10px] text-stone-800">
+          <div className="w-6 h-6 rounded-full bg-stone-300 flex items-center justify-center font-bold text-[10px] text-stone-800" aria-hidden="true">
             {article.author.avatar}
           </div>
           <span className="font-medium text-stone-700">{article.author.name}</span>
@@ -82,7 +82,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
         <span className="inline-flex items-center gap-1 font-semibold text-[#1A1918] group-hover:translate-x-0.5 transition-transform">
           <span>Read Essay</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
+          <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
         </span>
       </div>
     </article>

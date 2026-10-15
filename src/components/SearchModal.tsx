@@ -78,25 +78,28 @@ export const SearchModal: React.FC<SearchModalProps> = ({
       >
         {/* Search Header */}
         <div className="flex items-center px-5 py-4 border-b border-stone-300/80 bg-white">
-          <Search className="w-5 h-5 text-stone-500 mr-3 shrink-0" />
+          <Search className="w-5 h-5 text-stone-500 mr-3 shrink-0" aria-hidden="true" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search titles, concepts, brands (e.g. 99 cents, Apple, luxury)..."
+            aria-label="Search article titles and topics"
             className="w-full bg-transparent text-stone-900 font-sans text-base placeholder-stone-400 focus:outline-none"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
+              aria-label="Clear search query"
               className="p-1 text-stone-400 hover:text-stone-600 rounded-full mr-2"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           )}
           <button
             onClick={onClose}
+            aria-label="Close search modal"
             className="px-2.5 py-1 text-xs font-sans font-medium text-stone-600 bg-stone-100 hover:bg-stone-200 rounded border border-stone-300"
           >
             Esc

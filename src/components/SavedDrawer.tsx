@@ -33,16 +33,17 @@ export const SavedDrawer: React.FC<SavedDrawerProps> = ({
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-stone-300 bg-white">
           <div className="flex items-center gap-2">
-            <Bookmark className="w-5 h-5 text-stone-900 fill-stone-900" />
+            <Bookmark className="w-5 h-5 text-stone-900 fill-stone-900" aria-hidden="true" />
             <h2 className="font-serif font-bold text-xl text-stone-900">
               Saved Articles ({savedArticles.length})
             </h2>
           </div>
           <button
             onClick={onClose}
+            aria-label="Close saved articles drawer"
             className="p-1.5 text-stone-500 hover:text-stone-900 rounded-full hover:bg-stone-100 transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -61,9 +62,10 @@ export const SavedDrawer: React.FC<SavedDrawerProps> = ({
                   <button
                     onClick={() => onRemoveSaved(article.id)}
                     className="text-stone-400 hover:text-red-700 transition-colors p-1"
+                    aria-label={`Remove ${article.title} from saved`}
                     title="Remove from saved"
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                 </div>
 

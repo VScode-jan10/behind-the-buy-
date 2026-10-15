@@ -91,9 +91,10 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
           <div className="flex items-center gap-3">
             {/* Font Size Adjuster */}
             <div className="hidden sm:flex items-center gap-1 bg-stone-200/60 p-1 rounded-md border border-stone-300/60">
-              <Type className="w-3.5 h-3.5 text-stone-500 ml-1" />
+              <Type className="w-3.5 h-3.5 text-stone-500 ml-1" aria-hidden="true" />
               <button
                 onClick={() => setFontSize('normal')}
+                aria-label="Normal text size"
                 className={`px-2 py-0.5 rounded text-[11px] font-bold ${
                   fontSize === 'normal' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-600'
                 }`}
@@ -102,6 +103,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
               </button>
               <button
                 onClick={() => setFontSize('large')}
+                aria-label="Large text size"
                 className={`px-2 py-0.5 rounded text-xs font-bold ${
                   fontSize === 'large' ? 'bg-white text-stone-900 shadow-2xs' : 'text-stone-600'
                 }`}
@@ -113,16 +115,17 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
             {/* Share Button */}
             <button
               onClick={handleCopyLink}
+              aria-label="Share article link"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-stone-200/60 hover:bg-stone-200 border border-stone-300/60 text-stone-800 transition-all"
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-700" />
+                  <Check className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
                   <span className="font-semibold text-emerald-800">Copied Link</span>
                 </>
               ) : (
                 <>
-                  <Share2 className="w-3.5 h-3.5 text-stone-600" />
+                  <Share2 className="w-3.5 h-3.5 text-stone-600" aria-hidden="true" />
                   <span>Share</span>
                 </>
               )}
@@ -132,13 +135,14 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
             {onToggleSave && (
               <button
                 onClick={(e) => onToggleSave(article.id, e)}
+                aria-label={isSaved ? `Remove ${article.title} from saved` : `Save ${article.title}`}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all ${
                   isSaved
                     ? 'bg-stone-900 text-stone-100 font-medium'
                     : 'bg-stone-200/60 hover:bg-stone-200 text-stone-800 border border-stone-300/60'
                 }`}
               >
-                <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-stone-100' : ''}`} />
+                <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-stone-100' : ''}`} aria-hidden="true" />
                 <span>{isSaved ? 'Saved' : 'Save'}</span>
               </button>
             )}
@@ -155,7 +159,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
             <span>{article.categoryName}</span>
             <span aria-hidden="true">·</span>
             <span className="flex items-center gap-1 text-stone-600">
-              <Clock className="w-3.5 h-3.5 text-stone-400" />
+              <Clock className="w-3.5 h-3.5 text-stone-400" aria-hidden="true" />
               {article.readTimeMinutes} minute read
             </span>
             <span aria-hidden="true">·</span>
@@ -172,7 +176,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
 
           {/* Author Byline Box */}
           <div className="inline-flex items-center gap-3 pt-6 border-t border-stone-300/60">
-            <div className="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center font-bold text-xs text-stone-800">
+            <div className="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center font-bold text-xs text-stone-800" aria-hidden="true">
               {article.author.avatar}
             </div>
             <div className="text-left">
@@ -280,7 +284,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
 
         {/* Author Bio Card */}
         <div className="mt-12 p-6 bg-stone-200/50 border border-stone-300/80 rounded-xl flex flex-col sm:flex-row items-center gap-5">
-          <div className="w-16 h-16 rounded-full bg-stone-300 flex items-center justify-center font-bold text-base text-stone-900 shrink-0">
+          <div className="w-16 h-16 rounded-full bg-stone-300 flex items-center justify-center font-bold text-base text-stone-900 shrink-0" aria-hidden="true">
             {article.author.avatar}
           </div>
           <div>

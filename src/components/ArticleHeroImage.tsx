@@ -24,11 +24,13 @@ export const ArticleHeroImage: React.FC<ArticleHeroImageProps> = ({
 
   return (
     <div
+      role="img"
+      aria-label={`Editorial illustration for ${title} (${categoryName})`}
       className={`relative w-full overflow-hidden rounded-xl bg-gradient-to-br ${heroTheme.bgGradient} border border-stone-300/60 shadow-sm flex flex-col justify-between p-6 md:p-8 select-none ${heightClasses[size]} ${className}`}
     >
       {/* Background SVG Patterns */}
-      <div className="absolute inset-0 opacity-15 pointer-events-none">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <pattern
               id={`grid-${article.id}`}

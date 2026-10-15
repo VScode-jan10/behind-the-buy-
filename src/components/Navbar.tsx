@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2 px-3 py-1.5 text-xs font-sans font-medium text-stone-700 bg-stone-200/50 hover:bg-stone-200 border border-stone-300/60 rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-stone-400"
               aria-label="Search articles"
             >
-              <Search className="w-3.5 h-3.5 text-stone-600" />
+              <Search className="w-3.5 h-3.5 text-stone-600" aria-hidden="true" />
               <span className="hidden sm:inline">Search</span>
               <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono text-stone-500 bg-stone-100 rounded border border-stone-300">
                 ⌘K
@@ -110,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="relative flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-medium text-[#1A1918] bg-stone-900 text-stone-100 hover:bg-stone-800 rounded-md transition-all shadow-2xs focus:outline-none"
               aria-label="View saved articles"
             >
-              <Bookmark className="w-3.5 h-3.5 text-stone-300" />
+              <Bookmark className="w-3.5 h-3.5 text-stone-300" aria-hidden="true" />
               <span className="hidden sm:inline">Saved</span>
               {savedCount > 0 && (
                 <span className="ml-0.5 px-1.5 py-0.2 bg-stone-100 text-stone-900 text-[10px] font-bold rounded-full">
@@ -126,9 +126,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" aria-hidden="true" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-5 h-5" aria-hidden="true" />
               )}
             </button>
           </div>

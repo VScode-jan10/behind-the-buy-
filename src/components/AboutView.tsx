@@ -91,7 +91,10 @@ export const AboutView: React.FC = () => {
               key={idx}
               className="p-6 bg-[#FAF8F5] border border-stone-300/80 rounded-xl flex flex-col items-center text-center space-y-3"
             >
-              <div className="w-16 h-16 rounded-full bg-stone-300 flex items-center justify-center font-bold text-lg text-stone-900 shadow-inner">
+              <div 
+                className="w-16 h-16 rounded-full bg-stone-300 flex items-center justify-center font-bold text-lg text-stone-900 shadow-inner" 
+                aria-hidden="true"
+              >
                 {author.avatar}
               </div>
               <div>
