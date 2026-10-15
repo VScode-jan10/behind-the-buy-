@@ -13,8 +13,24 @@ import { SearchModal } from './components/SearchModal';
 import { SavedDrawer } from './components/SavedDrawer';
 import { Footer } from './components/Footer';
 
+// Helper function to extract normalized clean pathname
+export const getCleanPath = (path: string): string => {
+  if (!path) return '/';
+  let clean = path.split('?')[0].split('#')[0];
+  // Remove trailing slashes except for homepage '/'
+  if (clean.length > 1 && clean.endsWith('/')) {
+    clean = clean.slice(0, -1);
+  }
+  if (!clean.startsWith('/')) {
+    clean = '/' + clean;
+  }
+  return clean;
+};
+
 export default function App() {
-  const [currentPath, setCurrentPath] = useState<string>(window.location.pathname || '/');
+  const [currentPath, setCurrentPath] = useState<string>(() =>
+    getCleanPath(window.location.pathname || '/')
+  );
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [savedOpen, setSavedOpen] = useState<boolean>(false);
   const [savedArticleIds, setSavedArticleIds] = useState<string[]>(() => {
@@ -38,7 +54,7 @@ export default function App() {
   // Handle browser back/forward navigation
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
+      setCurrentPath(getCleanPath(window.location.pathname || '/'));
       window.scrollTo(0, 0);
     };
 
@@ -48,27 +64,31 @@ export default function App() {
 
   // Dynamic Page Metadata Manager for SEO (Title Tags & Meta Descriptions)
   useEffect(() => {
+    const cleanPath = getCleanPath(currentPath);
     let title = 'Consumer Psychology Blog | Behind the Buy Publication';
     let description =
       'Behind the Buy is a consumer psychology blog uncovering brand strategies, advertising techniques, pricing tactics, and human purchasing heuristics.';
 
-    if (currentPath.startsWith('/article/')) {
-      const slug = currentPath.replace('/article/', '');
+    if (cleanPath.startsWith('/article/')) {
+      const slug = cleanPath.replace('/article/', '');
       const article = ARTICLES.find((a) => a.slug === slug);
       if (article) {
         title = article.seoTitle || `${article.title} | Behind the Buy`;
         description = article.seoDescription || article.excerpt;
+      } else {
+        title = 'Article Not Found | Behind the Buy';
+        description = 'The requested consumer psychology essay could not be found.';
       }
-    } else if (currentPath === '/articles') {
+    } else if (cleanPath === '/articles') {
       title = 'All Essays | Consumer Psychology & Brand Strategy';
       description =
         'Explore 10 comprehensive essays on pricing tactics, brand identity, advertising psychology, and consumer purchasing behavior.';
-    } else if (currentPath === '/categories') {
+    } else if (cleanPath === '/categories') {
       title = 'Topic Categories | Behind the Buy Publication';
       description =
         'Browse Behind the Buy topic verticals: Pricing Tactics, Brand Strategy, Advertising & Media, Consumer Psychology, and Luxury Prestige.';
-    } else if (currentPath.startsWith('/category/')) {
-      const categoryId = currentPath.replace('/category/', '');
+    } else if (cleanPath.startsWith('/category/')) {
+      const categoryId = cleanPath.replace('/category/', '');
       const categoryMeta: Record<string, { title: string; description: string }> = {
         'pricing-tactics': {
           title: 'Pricing Tactics & Behavioral Economics | Behind the Buy',
@@ -105,7 +125,7 @@ export default function App() {
         description =
           'Browse Behind the Buy topic verticals: Pricing Tactics, Brand Strategy, Advertising & Media, Consumer Psychology, and Luxury Prestige.';
       }
-    } else if (currentPath === '/about') {
+    } else if (cleanPath === '/about') {
       title = 'About Us | Behind the Buy Editorial Publication';
       description =
         'Learn about Behind the Buy, an independent digital publication dedicated to analyzing consumer psychology, pricing tactics, and brand strategy.';
@@ -131,16 +151,6 @@ export default function App() {
 
     // Dynamic Canonical URL Tag Management
     const DOMAIN = 'https://behind-the-buy-upkc.vercel.app';
-    let cleanPath = currentPath.split('?')[0].split('#')[0];
-
-    // Normalize trailing slash (remove for sub-routes, keep '/' for homepage)
-    if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
-      cleanPath = cleanPath.slice(0, -1);
-    }
-    if (!cleanPath.startsWith('/')) {
-      cleanPath = '/' + cleanPath;
-    }
-
     const canonicalUrl = cleanPath === '/' ? `${DOMAIN}/` : `${DOMAIN}${cleanPath}`;
 
     let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -231,6 +241,15 @@ export default function App() {
               'item': articleUrl
             }
           ]
+        });
+      } else {
+        graphItems.push({
+          '@type': 'WebPage',
+          '@id': `${canonicalUrl}#webpage`,
+          'url': canonicalUrl,
+          'name': title,
+          'description': description,
+          'isPartOf': { '@id': `${DOMAIN}/#website` }
         });
       }
     } else if (cleanPath.startsWith('/category/')) {
@@ -392,10 +411,11 @@ export default function App() {
 
   // Router helper
   const navigateTo = (path: string) => {
-    if (window.location.pathname !== path) {
-      window.history.pushState({}, '', path);
+    const targetPath = getCleanPath(path);
+    if (getCleanPath(window.location.pathname) !== targetPath) {
+      window.history.pushState({}, '', targetPath);
     }
-    setCurrentPath(path);
+    setCurrentPath(targetPath);
     window.scrollTo(0, 0);
   };
 
@@ -417,9 +437,11 @@ export default function App() {
 
   // Parse path to determine current view
   const renderMainContent = () => {
+    const cleanPath = getCleanPath(currentPath);
+
     // 1. Article Detail View: /article/:slug
-    if (currentPath.startsWith('/article/')) {
-      const slug = currentPath.replace('/article/', '');
+    if (cleanPath.startsWith('/article/')) {
+      const slug = cleanPath.replace('/article/', '');
       const article = ARTICLES.find((a) => a.slug === slug);
 
       if (article) {
@@ -433,11 +455,28 @@ export default function App() {
             savedArticleIds={savedArticleIds}
           />
         );
+      } else {
+        return (
+          <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#1A1918] mb-4">
+              Article Not Found
+            </h1>
+            <p className="text-stone-600 font-sans text-base mb-8 max-w-md mx-auto">
+              The essay you are looking for does not exist or may have been moved.
+            </p>
+            <button
+              onClick={() => navigateTo('/articles')}
+              className="px-6 py-3 bg-stone-900 text-stone-100 font-sans text-sm font-semibold rounded-lg shadow-sm hover:bg-stone-800 transition-colors"
+            >
+              Browse All 10 Editorial Essays
+            </button>
+          </main>
+        );
       }
     }
 
     // 2. All Articles View: /articles
-    if (currentPath === '/articles') {
+    if (cleanPath === '/articles') {
       return (
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <ArticleGrid
@@ -454,9 +493,9 @@ export default function App() {
     }
 
     // 3. Category View: /categories or /category/:id
-    if (currentPath.startsWith('/categories') || currentPath.startsWith('/category/')) {
-      const categoryId = currentPath.startsWith('/category/')
-        ? (currentPath.replace('/category/', '') as CategoryId)
+    if (cleanPath === '/categories' || cleanPath.startsWith('/category/')) {
+      const categoryId = cleanPath.startsWith('/category/')
+        ? (cleanPath.replace('/category/', '') as CategoryId)
         : undefined;
 
       return (
@@ -478,7 +517,7 @@ export default function App() {
     }
 
     // 4. About View: /about
-    if (currentPath === '/about') {
+    if (cleanPath === '/about') {
       return <AboutView />;
     }
 
