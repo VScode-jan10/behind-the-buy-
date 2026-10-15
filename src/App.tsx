@@ -90,6 +90,28 @@ export default function App() {
 
     let ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc) ogDesc.setAttribute('content', description);
+
+    // Dynamic Canonical URL Tag Management
+    const DOMAIN = 'https://behind-the-buy-upkc.vercel.app';
+    let cleanPath = currentPath.split('?')[0].split('#')[0];
+
+    // Normalize trailing slash (remove for sub-routes, keep '/' for homepage)
+    if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
+      cleanPath = cleanPath.slice(0, -1);
+    }
+    if (!cleanPath.startsWith('/')) {
+      cleanPath = '/' + cleanPath;
+    }
+
+    const canonicalUrl = cleanPath === '/' ? `${DOMAIN}/` : `${DOMAIN}${cleanPath}`;
+
+    let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonicalUrl);
   }, [currentPath]);
 
   // Router helper
