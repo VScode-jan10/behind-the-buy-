@@ -1,0 +1,6 @@
+{
+  "name": "Behind the Buy — Consumer Psychology & Brand Strategy",
+  "description": "An editorial digital publication exploring the psychology behind purchasing decisions, brand strategies, advertising techniques, pricing tactics, and consumer behavior.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
