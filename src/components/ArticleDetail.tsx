@@ -25,6 +25,42 @@ interface ArticleDetailProps {
   savedArticleIds?: string[];
 }
 
+// Helper to parse markdown links [Link Text](/article/slug) into interactive React elements
+const renderParagraphWithLinks = (para: string, onNavigate: (path: string) => void) => {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts: (string | React.ReactNode)[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(para)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(para.substring(lastIndex, match.index));
+    }
+    const text = match[1];
+    const url = match[2];
+    parts.push(
+      <a
+        key={match.index}
+        href={url}
+        onClick={(e) => {
+          e.preventDefault();
+          onNavigate(url);
+        }}
+        className="font-semibold text-stone-900 underline decoration-amber-800/50 underline-offset-4 hover:decoration-stone-900 transition-colors cursor-pointer"
+      >
+        {text}
+      </a>
+    );
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < para.length) {
+    parts.push(para.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : para;
+};
+
 export const ArticleDetail: React.FC<ArticleDetailProps> = ({
   article,
   onBack,
@@ -195,7 +231,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
         <div className={`prose prose-stone max-w-none text-stone-800 font-sans ${fontSizeClasses[fontSize]}`}>
           {/* Introduction Paragraph with Drop Cap */}
           <div className="drop-cap mb-8 text-stone-900 font-sans leading-relaxed text-lg sm:text-xl">
-            {article.content.intro}
+            {renderParagraphWithLinks(article.content.intro, onNavigateSlug)}
           </div>
 
           {/* Article Sections */}
@@ -213,7 +249,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({
 
               {section.body.map((para, pIdx) => (
                 <p key={pIdx} className="mb-5 text-stone-800 leading-relaxed">
-                  {para}
+                  {renderParagraphWithLinks(para, onNavigateSlug)}
                 </p>
               ))}
 

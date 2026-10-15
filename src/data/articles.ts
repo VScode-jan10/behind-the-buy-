@@ -58,7 +58,7 @@ export const ARTICLES: Article[] = [
           body: [
             'Cognitive anchoring occurs when an initial piece of information sets the baseline for all subsequent judgments. In pricing strategy, the first number a consumer sees becomes an immovable mental pillar against which every other price is measured.',
             'Consider high-end electronics or luxury automotive configurators. By displaying a baseline flagship model priced at $2,400, a $300 accessory or software upgrade feels negligible by comparison. Had the consumer seen the $300 upgrade in isolation, it might have triggered intense spending resistance.',
-            'Retailers exploit anchoring by featuring crossed-out "original prices" beside sale items. The brain fixes on the higher number as the true valuation of the good, interpreting the lower price not as an expense, but as an immediate capture of economic surplus.'
+            'Retailers exploit anchoring by featuring crossed-out "original prices" beside sale items, relying on [charm pricing tactics](/article/why-do-companies-use-prices-ending-in-9) to lower spending resistance.'
           ],
           pullQuote: 'Price is not an absolute measure of economic utility; it is a relational metric constructed entirely inside the buyer’s mind.',
           exampleBox: {
@@ -79,7 +79,7 @@ export const ARTICLES: Article[] = [
           heading: '3. Price Elasticity and Prestige Signaling',
           subheading: 'When higher prices increase demand',
           body: [
-            'Classical economic theory dictates that as price increases, demand decreases. Yet in luxury and aspirational goods, psychological pricing operates in reverse through the Veblen effect.',
+            'Classical economic theory dictates that as price increases, demand decreases. Yet in luxury and aspirational goods, psychological pricing operates in reverse through [prestige pricing for luxury goods](/article/why-do-luxury-brands-charge-premium-prices).',
             'Higher price tags serve as a filter of exclusivity. When a brand elevates its prices, it communicates superior craftsmanship, social prestige, and scarcity. Lowering prices in these tiers actually destroys brand equity, as it dilutes the signaling value that buyers are ultimately purchasing.'
           ]
         },
@@ -145,7 +145,7 @@ export const ARTICLES: Article[] = [
           subheading: 'Reducing decision fatigue in an information-dense world',
           body: [
             'Every day, the average urban consumer is exposed to over 5,000 commercial messages. To survive this cognitive onslaught, the human brain relies on mental shortcuts called heuristics.',
-            'A established brand acts as an encapsulated promise. When a consumer recognizes a trusted brand mark, their brain experiences a measurable drop in cognitive load. The brand badge instantly answers critical unspoken questions: Will this work? Is this safe? Will I look foolish? By answering these questions upfront, the brand reduces purchase hesitation to near zero.'
+            'A established brand acts as an encapsulated promise, strengthened by [authentic brand storytelling](/article/how-do-brands-use-storytelling-in-marketing) that resonates with human emotions. When a consumer recognizes a trusted brand mark, their brain experiences a measurable drop in cognitive load. The brand badge instantly answers critical unspoken questions: Will this work? Is this safe? Will I look foolish? By answering these questions upfront, the brand reduces purchase hesitation to near zero.'
           ],
           pullQuote: 'A brand is not a product; it is a mental folder in the consumer’s brain that stores feelings, trust, and identity benchmarks.',
           exampleBox: {
@@ -167,7 +167,7 @@ export const ARTICLES: Article[] = [
           subheading: 'Why consumers defend brands against objective criticism',
           body: [
             'Strong brands cultivate tribal devotion. When a consumer becomes deeply aligned with a brand identity, criticism of that brand feels like an attack on the individual’s personal judgment.',
-            'This emotional bond creates immune systems around customer retention. Loyal customers forgive minor product defects, price increases, and delayed shipping because abandoning the brand would disrupt their internal narrative.'
+            'This emotional bond creates immune systems around customer retention, amplified by powerful [social proof mechanisms](/article/how-does-social-proof-influence-purchasing-decisions). Loyal customers forgive minor product defects, price increases, and delayed shipping because abandoning the brand would disrupt their internal narrative.'
           ]
         },
         {
@@ -243,7 +243,7 @@ export const ARTICLES: Article[] = [
           heading: '2. Conceptual Priming and Sensory Cues',
           subheading: 'Setting the cognitive stage before the pitch begins',
           body: [
-            'Priming involves exposing a person to one stimulus to subconsciously influence their response to a subsequent stimulus. Advertisers meticulously design lighting, soundscapes, and color palettes to prime emotional states.',
+            'Priming involves exposing a person to one stimulus to subconsciously influence their response to a subsequent stimulus. Advertisers meticulously design lighting, soundscapes, and [strategic color psychology](/article/how-does-colour-psychology-affect-branding) to prime emotional states.',
             'A luxury car commercial filmed in rainy mountain passes with cello music primes feelings of security, precision, and solitary reflection. When the buyer later steps into the showroom, those primed associations color their physical experience of sitting in the driver’s seat.'
           ]
         },
@@ -251,10 +251,10 @@ export const ARTICLES: Article[] = [
           heading: '3. Social Validation and Normative Framing',
           subheading: 'Leveraging herd instincts for brand momentum',
           body: [
-            'Effective advertising frames consumption as the default behavior of desirable social groups. Phrases like "Join over 2 million creators" or visuals showing vibrant gatherings tap into our evolutionary fear of social isolation.',
+            'Effective advertising frames consumption as the default behavior of desirable social groups by displaying [social proof signals](/article/how-does-social-proof-influence-purchasing-decisions). Phrases like "Join over 2 million creators" or visuals showing vibrant gatherings tap into our evolutionary fear of social isolation.',
             'By framing product adoption as the normative standard, advertising transforms buying into an act of social alignment.'
           ]
-        }
+        },
       ],
       takeaways: [
         {
@@ -304,7 +304,7 @@ export const ARTICLES: Article[] = [
           pullQuote: 'Packaging variation is the physical manifestation of price discrimination, allowing brands to capture profit across vastly different consumer budgets.',
           exampleBox: {
             brandName: 'Cosmetic Miniatures & Trial Pricing',
-            context: 'Luxury beauty brands sell 5ml mini mascara tubes for $18, while the 15ml full-size tube costs $32. On a per-milliliter basis, the mini costs more than double.',
+            context: 'When [luxury beauty brands](/article/why-do-luxury-brands-charge-premium-prices) sell 5ml mini mascara tubes for $18, while the 15ml full-size tube costs $32, consumers pay double per milliliter for immediate trial convenience.',
             takeaway: 'Lower absolute price barriers attract trial customers who ignore disproportionate unit costs.'
           }
         },
@@ -320,7 +320,7 @@ export const ARTICLES: Article[] = [
           heading: '3. Container Geometry and Consumption Velocity',
           subheading: 'How package design speeds up product replacement',
           body: [
-            'Packaging design influences how fast consumers use products. Wider bottle openings on liquid soaps encourage larger dollops. Softer squeeze tubes lead to accidental over-dispensing. Larger family containers reduce perceived scarcity, leading households to consume portions faster and repurchase sooner.'
+            'Packaging design influences how fast consumers use products. Wider bottle openings on liquid soaps encourage larger dollops. Softer squeeze tubes lead to accidental over-dispensing. Larger family containers reduce [perceived product scarcity](/article/how-do-limited-edition-products-create-demand), leading households to consume portions faster and repurchase sooner.'
           ]
         }
       ],
@@ -367,7 +367,7 @@ export const ARTICLES: Article[] = [
           subheading: 'Why safety in numbers is hardwired into human survival',
           body: [
             'For hundreds of thousands of years, straying from the herd was dangerous. Early humans relied on the collective wisdom of the group to identify safe food sources and avoid hidden predators. In the modern marketplace, this evolutionary wiring translates directly into consumer behavior.',
-            'When consumers navigate thousands of competing options online, evaluating every choice independently is exhausting. Star ratings, review counts, and customer testimonials act as collective safety signals, proving that hundreds of peers have already tested the waters and survived.'
+            'When consumers navigate thousands of competing options online, evaluating every choice independently is exhausting. Star ratings and review counts act as collective safety signals for [building brand trust](/article/how-does-branding-influence-consumer-behavior).'
           ],
           pullQuote: 'When people are uncertain, they do not look inward to logic; they look outward to the crowd.',
           exampleBox: {
@@ -392,10 +392,10 @@ export const ARTICLES: Article[] = [
           heading: '3. The Dark Pattern of Manufactured Scarcity & Queue Engineering',
           subheading: 'Creating artificial urgency through engineered social pressure',
           body: [
-            'Exclusive nightclubs and high-end streetwear pop-ups routinely engineer artificial queues outside their venues even when floor space is available inside. The physical line visible from the street acts as a beacon of high demand.',
+            'Exclusive nightclubs and [exclusive drop mechanics](/article/how-do-limited-edition-products-create-demand) routinely engineer artificial queues outside their venues even when floor space is available inside. The physical line visible from the street acts as a beacon of high demand.',
             'Digital retailers replicate this by displaying dynamic stock countdowns and live purchase tickers, triggering fear of missing out (FOMO) and accelerating checkout velocity.'
           ]
-        }
+        },
       ],
       takeaways: [
         {
