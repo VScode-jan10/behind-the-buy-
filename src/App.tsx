@@ -46,6 +46,52 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // Dynamic Page Metadata Manager for SEO (Title Tags & Meta Descriptions)
+  useEffect(() => {
+    let title = 'Consumer Psychology Blog | Behind the Buy Publication';
+    let description =
+      'Behind the Buy is a consumer psychology blog uncovering brand strategies, advertising techniques, pricing tactics, and human purchasing heuristics.';
+
+    if (currentPath.startsWith('/article/')) {
+      const slug = currentPath.replace('/article/', '');
+      const article = ARTICLES.find((a) => a.slug === slug);
+      if (article) {
+        title = article.seoTitle || `${article.title} | Behind the Buy`;
+        description = article.seoDescription || article.excerpt;
+      }
+    } else if (currentPath === '/articles') {
+      title = 'All Essays | Consumer Psychology & Brand Strategy';
+      description =
+        'Explore 10 comprehensive essays on pricing tactics, brand identity, advertising psychology, and consumer purchasing behavior.';
+    } else if (currentPath === '/categories' || currentPath.startsWith('/category/')) {
+      title = 'Topic Categories | Behind the Buy Publication';
+      description =
+        'Browse Behind the Buy topic verticals: Pricing Tactics, Brand Strategy, Advertising & Media, Consumer Psychology, and Luxury Prestige.';
+    } else if (currentPath === '/about') {
+      title = 'About Us | Behind the Buy Editorial Publication';
+      description =
+        'Learn about Behind the Buy, an independent digital publication dedicated to analyzing consumer psychology, pricing tactics, and brand strategy.';
+    }
+
+    document.title = title;
+
+    // Update <meta name="description"> tag
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', description);
+
+    // Update OpenGraph meta tags
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', description);
+  }, [currentPath]);
+
   // Router helper
   const navigateTo = (path: string) => {
     if (window.location.pathname !== path) {

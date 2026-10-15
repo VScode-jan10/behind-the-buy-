@@ -72,6 +72,27 @@ export const Hero: React.FC<HeroProps> = ({
               <span className="text-sm font-serif font-bold text-stone-800 mt-0.5 block">10 Full Essays</span>
             </div>
           </div>
+
+          {/* AEO Insights Question & Answer Section */}
+          <div className="mt-12 pt-8 border-t border-stone-300/60 text-left grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#F5F2EC] p-6 sm:p-8 rounded-xl border border-stone-300/80">
+            <div>
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-[#1A1918] mb-2">
+                What is consumer psychology in marketing?
+              </h2>
+              <p className="text-xs font-sans text-stone-700 leading-relaxed">
+                <strong className="font-semibold text-stone-900">Consumer psychology</strong> is the study of how human thoughts, emotional triggers, and cognitive heuristics dictate how buyers evaluate products and make purchasing decisions. Marketers leverage these insights to design intuitive retail experiences, optimize pricing structures, and reduce purchase hesitation.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-[#1A1918] mb-2">
+                How do brands influence consumer purchasing decisions?
+              </h2>
+              <p className="text-xs font-sans text-stone-700 leading-relaxed">
+                Brands influence purchasing decisions by triggering emotional connections, applying subtle price anchoring, and displaying social proof that lowers perceived risk. Through repeated visual exposure and symbolic identity alignment, brands turn functional utility into long-term customer loyalty.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

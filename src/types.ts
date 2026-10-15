@@ -36,6 +36,8 @@ export interface Article {
   publishedAt: string;
   readTimeMinutes: number;
   featured?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
   heroTheme: {
     accentColor: string;
     bgGradient: string;
