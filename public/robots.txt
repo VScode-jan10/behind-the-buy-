@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://behind-the-buy-upkc.vercel.app/sitemap.xml
